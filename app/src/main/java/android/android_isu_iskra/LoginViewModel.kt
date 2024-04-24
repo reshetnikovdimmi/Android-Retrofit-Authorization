@@ -4,5 +4,5 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
 class LoginViewModel : ViewModel() {
-    val login = MutableLiveData<String>()
+    val token = MutableLiveData<String>()
 }

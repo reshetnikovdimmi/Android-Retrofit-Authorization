@@ -10,11 +10,9 @@ import android.android_isu_iskra.databinding.FragmentLoginBinding
 import android.android_isu_iskra.retrofit.ServiceApi
 import android.android_isu_iskra.retrofit.Shop
 import android.annotation.SuppressLint
-import android.content.Context
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
-import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -32,7 +30,7 @@ class LoginFragment : Fragment() {
     private val viewModel: LoginViewModel by activityViewModels()
     private lateinit var binding: FragmentLoginBinding
     private lateinit var mainApi: ServiceApi
-
+    lateinit var login: String
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -70,7 +68,7 @@ class LoginFragment : Fragment() {
                         ) {
                             name.text = user[position]
 
-                            viewModel.login.value = user[position]
+                            this@LoginFragment.login =user[position]
                         }
                         override fun onNothingSelected(parent: AdapterView<*>?) {
                             //no activity or action when nothing is selected
@@ -81,9 +79,9 @@ class LoginFragment : Fragment() {
         }
         binding.bSignIn.setOnClickListener {
             findNavController().navigate(R.id.action_loginFragment_to_menuFragment)
-                viewModel.login.observe(viewLifecycleOwner) { l ->
-                auth( Shop(1,l,binding.password.text.toString(),"null","null","null","null","null","null","null","null","null","null","null"))
-            }
+              //  viewModel.token.observe(viewLifecycleOwner) { l ->
+                auth( Shop(1,login,binding.password.text.toString(),"null","null","null","null","null","null","null","null","null","null","null","null"))
+          //  }
 
         }
     }
@@ -96,7 +94,7 @@ class LoginFragment : Fragment() {
             .build()
 
         val retrofit = Retrofit.Builder()
-            .baseUrl("http://192.168.1.69:5000").client(client)
+            .baseUrl("http://192.168.1.69:8090").client(client)
             .addConverterFactory(GsonConverterFactory.create()).build()
         mainApi = retrofit.create(ServiceApi::class.java)
     }
@@ -113,7 +111,7 @@ class LoginFragment : Fragment() {
                     //  Picasso.get().load(user.image).into(binding.imageView)
                     binding.name.text = user.login
                     binding.bSignIn.visibility = View.GONE
-                   // viewModel.login.value = user.password
+                    viewModel.token.value = user.token
                 }
             }
         }

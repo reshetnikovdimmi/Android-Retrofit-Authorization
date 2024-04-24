@@ -38,7 +38,7 @@ class MainActivity : AppCompatActivity() {
             .build()
 
         val retrofit = Retrofit.Builder()
-            .baseUrl("http://192.168.1.69:5000").client(client)
+            .baseUrl("http://192.168.1.69:8090").client(client)
             .addConverterFactory(GsonConverterFactory.create()).build()
         val mainApi = retrofit.create(ServiceApi::class.java)
         val spinner: Spinner = binding.login
@@ -73,7 +73,7 @@ class MainActivity : AppCompatActivity() {
         }
         binding.bSignIn.setOnClickListener {
             CoroutineScope(Dispatchers.IO).launch {
-                val user = mainApi.auth(Shop(1,"null","null","null","null","null","null","null","null","null","null","null","null","null")
+                val user = mainApi.auth(Shop(1,"null","null","null","null","null","null","null","null","null","null","null","null","null","null")
                 )
                 runOnUiThread {
                     binding.apply {

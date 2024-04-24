@@ -3,7 +3,6 @@ package android.android_isu_iskra
 import android.android_isu_iskra.Data.data
 import android.android_isu_iskra.databinding.FragmentPromoBinding
 import android.os.Bundle
-import android.telecom.Call.Details
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -60,7 +59,7 @@ class PromoFragment : Fragment() {
             false
         }
 
-        viewModel.login.observe(viewLifecycleOwner){ l ->
+        viewModel.token.observe(viewLifecycleOwner){ l ->
             Toast.makeText(requireActivity(), l, Toast.LENGTH_LONG)
                 .show()
         }

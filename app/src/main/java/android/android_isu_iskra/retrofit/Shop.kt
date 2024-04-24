@@ -14,7 +14,8 @@ data class Shop(
     val simT2: String,
     val simMts: String,
     val simBee: String,
-    val simMf: String
+    val simMf: String,
+    val token: String
 
 )
 
